@@ -11,7 +11,7 @@ function index(req, res) {
 
 function show(req, res) {
   const post = postsList.find((post) => post.id === parseInt(req.params.id));
-  // Facciamo il controllo
+  // Faccio il controllo
   if (!post) {
     //Imposto lo status 404
     res.status(404);
@@ -38,7 +38,23 @@ function modify(req, res) {
 }
 
 function destroy(req, res) {
-  res.send("Eliminazione del post con id: " + req.params.id);
+  const id = parseInt(req.params.id);
+  const post = postsList.find((post) => post.id === id);
+
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      status: 404,
+      error: "Not Found",
+      message: "Post non trovato",
+    });
+  }
+  // Rimuovo post dalla lista
+  postsList.splice(postsList.indexOf(post), 1);
+  console.log(`lista aggiornata`);
+  console.log(postsList);
+  res.sendStatus(204);
 }
 
 module.exports = { index, show, store, update, modify, destroy };
