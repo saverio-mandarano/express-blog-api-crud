@@ -3,9 +3,18 @@ const postsList = require("../data/posts");
 
 //funzioni delle operazioni CRUD, ognuna con logica corrispondente:
 function index(req, res) {
+  let filteredPostsList = postsList;
+
+  //Se la richiesta contiene un filtro, allora filtro la lista dei post
+  if (req.query.category) {
+    filteredPostsList = postsList.filter((post) =>
+      post.tags.includes(req.query.category),
+    );
+  }
+
   res.json({
-    total: postsList.length,
-    posts: postsList,
+    total: filteredPostsList.length,
+    posts: filteredPostsList,
   });
 }
 
