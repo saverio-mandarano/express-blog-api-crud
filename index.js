@@ -7,6 +7,9 @@ const postsRouter = require("./routers/posts");
 //attivazione della cartella public per uso file statici
 app.use(express.static("public"));
 
+// registro il body-parser per "application/json"
+app.use(express.json());
+
 // rotta home APP
 app.get("/", (req, res) => {
   res.send("Hello World!");
