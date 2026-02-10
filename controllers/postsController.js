@@ -59,7 +59,30 @@ function store(req, res) {
 }
 
 function update(req, res) {
-  res.send("Modifica integrale del post con id: " + req.params.id);
+  console.log(req.body);
+  const id = parseInt(req.params.id);
+  const post = postsList.find((post) => post.id === id);
+
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      status: 404,
+      error: "Not Found",
+      message: "Post non trovato",
+    });
+  }
+
+  // Aggiorniamo il post
+  post.title = req.body.title;
+  post.image = req.body.image;
+  post.content = req.body.content;
+  post.tags = req.body.tags;
+
+  // Controlliamo la lista dei post
+  console.log(postsList);
+  // Restituiamo la post appena aggiornata
+  res.json(post);
 }
 
 function modify(req, res) {
