@@ -86,7 +86,27 @@ function update(req, res) {
 }
 
 function modify(req, res) {
-  res.send("Modifica parziale del post con id: " + req.params.id);
+  console.log(req.body);
+  const id = parseInt(req.params.id);
+  const post = postsList.find((post) => post.id === id);
+
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      status: 404,
+      error: "Not Found",
+      message: "Post non trovato",
+    });
+  }
+
+  // Aggiorniamo il post cambiandone il titolo
+  post.title = req.body.title;
+
+  // Controlliamo la lista dei post
+  console.log(postsList);
+  // Restituiamo la post appena aggiornata
+  res.json(post);
 }
 
 function destroy(req, res) {
