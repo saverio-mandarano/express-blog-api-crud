@@ -20,6 +20,10 @@ function index(req, res) {
 
 function show(req, res) {
   const post = postsList.find((post) => post.id === parseInt(req.params.id));
+
+  //introduco errore per test middleware errore 500
+  throw new Error("Errore di test middleware");
+
   // Faccio il controllo
   if (!post) {
     //Imposto lo status 404

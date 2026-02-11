@@ -3,7 +3,10 @@ const app = express();
 const port = 3000;
 
 // import del middleware checkTime
-const checkTime = require("./middlewares/checkTime.js");
+// const checkTime = require("./middlewares/checkTime.js");
+
+//import del middleware di gestione errore interno 500
+const errorsHandler = require("./middlewares/errorsHandler");
 
 const postsRouter = require("./routers/posts");
 
@@ -25,6 +28,9 @@ app.get("/", (req, res) => {
 // app.use("/posts", checkTime);
 // collego le rotte definite in postsRouter alla path "/posts"
 app.use("/posts", postsRouter);
+
+//Registrazione globale middleware di gestione errore 500
+app.use(errorsHandler);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
