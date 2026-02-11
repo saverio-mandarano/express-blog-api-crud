@@ -100,8 +100,13 @@ function modify(req, res) {
     });
   }
 
-  // Aggiorniamo il post cambiandone il titolo
-  post.title = req.body.title;
+  // Aggiorniamo il post
+  req.body.title ? (post.title = req.body.title) : (post.title = post.title);
+  req.body.image ? (post.image = req.body.image) : (post.image = post.image);
+  req.body.tags ? (post.tags = req.body.tags) : (post.tags = post.tags);
+  req.body.content
+    ? (post.content = req.body.content)
+    : (post.content = post.content);
 
   // Controlliamo la lista dei post
   console.log(postsList);
