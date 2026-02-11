@@ -8,6 +8,9 @@ const port = 3000;
 //import del middleware di gestione errore interno 500
 const errorsHandler = require("./middlewares/errorsHandler");
 
+//import del middleware di gestione rotta inesistente
+const notFound = require("./middlewares/notFound");
+
 const postsRouter = require("./routers/posts");
 
 //attivazione della cartella public per uso file statici
@@ -31,6 +34,9 @@ app.use("/posts", postsRouter);
 
 //Registrazione globale middleware di gestione errore 500
 app.use(errorsHandler);
+
+//Registrazione globale middleware di gestione rotta inesistente
+app.use(notFound);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
